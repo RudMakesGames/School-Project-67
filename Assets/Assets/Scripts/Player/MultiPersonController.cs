@@ -13,17 +13,13 @@ namespace VS
     public class MultiPersonController : MonoBehaviour
     {   
         [Header("Player")]
-        [Tooltip("Move speed of the character in m/s")]
         public float MoveSpeed = 2.0f;
 
-        [Tooltip("Sprint speed of the character in m/s")]
         public float SprintSpeed = 5.335f;
 
-        [Tooltip("How fast the character turns to face movement direction")]
         [Range(0.0f, 0.3f)]
         public float RotationSmoothTime = 0.12f;
 
-        [Tooltip("Acceleration and deceleration")]
         public float SpeedChangeRate = 10.0f;
 
         public AudioClip LandingAudioClip;
@@ -31,94 +27,68 @@ namespace VS
         [Range(0, 1)] public float FootstepAudioVolume = 0.5f;
 
         [Space(10)]
-        [Tooltip("The height the player can jump")]
         public float JumpHeight = 1.2f;
 
-        [Tooltip("The character uses its own gravity value. The engine default is -9.81f")]
         public float Gravity = -15.0f;
 
         [Space(10)]
-        [Tooltip("Time required to pass before being able to jump again. Set to 0f to instantly jump again")]
         public float JumpTimeout = 0.50f;
 
-        [Tooltip("Time required to pass before entering the fall state. Useful for walking down stairs")]
         public float FallTimeout = 0.15f;
 
         [Header("Player Grounded")]
-        [Tooltip("If the character is grounded or not. Not part of the CharacterController built in grounded check")]
         public bool Grounded = true;
 
         [Tooltip("Useful for rough ground")]
         public float GroundedOffset = -0.14f;
 
-        [Tooltip("The radius of the grounded check. Should match the radius of the CharacterController")]
         public float GroundedRadius = 0.28f;
 
-        [Tooltip("What layers the character uses as ground")]
         public LayerMask GroundLayers;
 
         [Header("Cinemachine")]
-        [Tooltip("Single shared camera root / follow target used by BOTH TP and FP cameras.")]
         public GameObject CinemachineCameraTarget;
 
-        [Tooltip("How far in degrees can you move the camera up (TP mode)")]
         public float TopClamp = 70.0f;
 
-        [Tooltip("How far in degrees can you move the camera down (TP mode)")]
         public float BottomClamp = -30.0f;
 
-        [Tooltip("Additional degrees to override the camera. Useful for fine tuning camera position when locked")]
         public float CameraAngleOverride = 0.0f;
 
-        [Tooltip("For locking the camera position on all axis")]
         public bool LockCameraPosition = false;
 
         [Header("View Mode (TP/FP)")]
-        [Tooltip("If enabled, movement uses FirstPersonMotor-style body-relative movement (WASD relative to character forward/right).")]
         [SerializeField] private bool useFirstPersonMovement = false;
 
-        [Tooltip("Optional: toggles the view mode when pressing the key below (uses virtual camera priorities).")]
         [SerializeField] private bool allowToggleViewMode = true;
 
-        [Tooltip("Key used to toggle between TP/FP modes.")]
         [SerializeField] private KeyCode toggleViewModeKey = KeyCode.V;
 
-        [Tooltip("Third-person Cinemachine Virtual Camera.")]
         [SerializeField] private CinemachineCamera thirdPersonCamera;
 
-        [Tooltip("First-person Cinemachine Virtual Camera.")]
         [SerializeField] private CinemachineCamera firstPersonCamera;
 
-        [Tooltip("Priority used by the active camera (inactive is active-1).")]
         [SerializeField] private int activeCameraPriority = 20;
 
-        [Tooltip("If enabled, both vcams are bound to `CinemachineCameraTarget` for Follow and LookAt.")]
         [SerializeField] private bool autoBindCameraTargets = true;
 
         [Header("Camera Optimization")]
-        [Tooltip("If enabled, disables the inactive vcam GameObject immediately when switching view mode.")]
         [SerializeField] private bool disableInactiveCameraImmediately = true;
 
         [Header("First Person Look")]
-        [Tooltip("Clamp for FP pitch (look up/down).")]
         [SerializeField] private float firstPersonPitchTopClamp = 80.0f;
 
-        [Tooltip("Clamp for FP pitch (look up/down).")]
         [SerializeField] private float firstPersonPitchBottomClamp = -80.0f;
 
-        [Tooltip("If enabled, FP yaw rotates the player (body). If disabled, yaw is applied to the camera target.")]
         [SerializeField] private bool firstPersonRotateBodyYaw = true;
 
         [Header("First Person Body Culling (Main Camera)")]
-        [Tooltip("Layer(s) that represent the player body. These layers will be hidden from the MAIN CAMERA while in FP mode.")]
         [SerializeField] private LayerMask playerBodyLayers = 0;
 
-        [Tooltip("Delay (seconds) before applying the culling mask when ENTERING FP mode. Exiting FP is immediate.")]
         [Min(0f)]
         [SerializeField] private float enterFirstPersonCullingDelay = 0.1f;
 
         [Header("Camera Switch Cooldown")]
-        [Tooltip("Cooldown (seconds) after pressing the toggle key before switching is allowed again.")]
         [Min(0f)]
         [SerializeField] private float viewToggleCooldown = 0.25f;
 

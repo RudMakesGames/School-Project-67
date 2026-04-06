@@ -9,7 +9,7 @@ public class DoorInteractable : MonoBehaviour, IInteractable
 
     [SerializeField]
     Animator anim;
-    public string InteractionPromptName { get => ""; set => throw new System.NotImplementedException(); }
+    public string InteractionPromptName => "Open / Close Door";
 
     public void Interact()
     {
